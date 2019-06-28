@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Login from "./Login";
 import Layout from "../Components/Layout";
 import axios from 'axios';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
+import actions from './Actions';
+import {connect} from "react-redux";
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -10,30 +12,36 @@ class LoginContainer extends Component {
     this.state = {
       email: "",
       password: "",
-      errmsg: ""
+      errmsg: "",
+      
     };
-    if(Cookies.get("token")){
-        props.history.push('/mainpage');
+    // url:http://www.json-generator.com/api/json/get/bPnGPFblrC?indent=2
+
+
+    // url:http://www.json-generator.com/api/json/get/ceYBAzMuuW?indent=2
+    
+    if (Cookies.get("token")) {
+      props.history.push('/homepage');
     }
   }
+  componentDidUpdate(){
+    if (Cookies.get("token")) {
+      this.props.history.push('/homepage');
+    }
+  }
+  // componentDidUpdate(){
+  //   console.log("from lg th props is", this.props.user.validuser)
+  //   if(this.props.user.validuser){
+  //     this.props.history.push('/homepage');
+  //   }
+  // }
+  
   handleLogin = e => {
     e.preventDefault();
-    
-    axios.get(`http://www.json-generator.com/api/json/get/cliWWynsBK?indent=2`)
-    .then(res=>{
-        console.log("frpm api",res);
-        debugger;
-        // if(res.data.length){
-            
-        //     //alert("user authenticated");
-        //     Cookies.set('token',this.state.email);
-        //     this.props.history.push("/homepage")
-        // }else{
-        //     alert("invalid user");
-        // }
-    }).catch(err=>{
-        console.log(err);
-    })
+    //console.log("props fom hndle login is", this.props);
+    this.props.userLogin(this.state);
+
+     
 
   };
   handleEmail = e => {
@@ -50,7 +58,7 @@ class LoginContainer extends Component {
     //console.log("from login container",this.props); 
     const { email, password, errmsg } = this.state;
     return (
-      <Layout>
+      
         <Login
           email={email}
           password={password}
@@ -59,9 +67,17 @@ class LoginContainer extends Component {
           handleLogin={this.handleLogin}
           handlePassword={this.handlePassword}
         />
-      </Layout>
+    
     );
   }
 }
+const mapStateToProps = (state)=>({
+  //console.log("state from mapsttoprops is", state);
+    user: state.user
+});
 
-export default LoginContainer;
+const mapDispatchToProps = {
+   userLogin: actions.userLogin
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginContainer);

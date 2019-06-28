@@ -9,7 +9,7 @@ class Layout extends Component {
     render() { 
        // console.log("from layout",this.props); 
         return ( <div>
-            <Header/>
+            <Header className="header"/>
             {this.props.children}
         </div> );
     }
