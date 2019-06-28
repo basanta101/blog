@@ -8,7 +8,7 @@ class Logout extends Component {
         this.state = {  }
         Cookies.remove("token");
         props.history.push('/');
-        alert("user succesfully logged out");
+       // alert("user succesfully logged out");
     }
     render() { 
         return (true );

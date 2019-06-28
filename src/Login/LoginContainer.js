@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Login from "./Login";
 import Layout from "../Components/Layout";
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import actions from './Actions';
-import {connect} from "react-redux";
+import axios from "axios";
+import Cookies from "js-cookie";
+import actions from "./Actions";
+import { connect } from "react-redux";
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -12,21 +12,19 @@ class LoginContainer extends Component {
     this.state = {
       email: "",
       password: "",
-      errmsg: "",
-      
+      errmsg: ""
     };
     // url:http://www.json-generator.com/api/json/get/bPnGPFblrC?indent=2
 
-
     // url:http://www.json-generator.com/api/json/get/ceYBAzMuuW?indent=2
-    
+
     if (Cookies.get("token")) {
-      props.history.push('/homepage');
+      props.history.push("/homepage");
     }
   }
-  componentDidUpdate(){
+  componentDidUpdate() {
     if (Cookies.get("token")) {
-      this.props.history.push('/homepage');
+      this.props.history.push("/homepage");
     }
   }
   // componentDidUpdate(){
@@ -35,14 +33,11 @@ class LoginContainer extends Component {
   //     this.props.history.push('/homepage');
   //   }
   // }
-  
+
   handleLogin = e => {
     e.preventDefault();
     //console.log("props fom hndle login is", this.props);
     this.props.userLogin(this.state);
-
-     
-
   };
   handleEmail = e => {
     this.setState({
@@ -55,10 +50,10 @@ class LoginContainer extends Component {
     });
   };
   render() {
-    //console.log("from login container",this.props); 
+    //console.log("from login container",this.props);
     const { email, password, errmsg } = this.state;
     return (
-      
+      <div className="login-container">
         <Login
           email={email}
           password={password}
@@ -67,17 +62,20 @@ class LoginContainer extends Component {
           handleLogin={this.handleLogin}
           handlePassword={this.handlePassword}
         />
-    
+      </div>
     );
   }
 }
-const mapStateToProps = (state)=>({
+const mapStateToProps = state => ({
   //console.log("state from mapsttoprops is", state);
-    user: state.user
+  user: state.user
 });
 
 const mapDispatchToProps = {
-   userLogin: actions.userLogin
-}
+  userLogin: actions.userLogin
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(LoginContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginContainer);

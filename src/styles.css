@@ -1,3 +1,25 @@
+
+body{
+    background-color: #e1f4f5;
+}
+.login-container{
+    
+    height:100%;
+}
+
+.login-content{
+    display: flex;
+    flex-direction: column;
+    margin: 15% 41%;
+}
+.input{
+    border-radius: 5px;
+}
+.btn{
+    border-radius: 7px;
+    margin-left: 25%;
+    margin-top: 5%;
+}
 .header{
     display: block;
     text-decoration: none;
@@ -22,4 +44,18 @@
     height:60px;
     border: 1px solid #aaa;
     margin-bottom: 10%;
+}
+.mainpage-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.c1{
+    margin: 5% 0 10% 42% ; 
+}
+.c2{
+    margin: 0 0 0 44%;
+}
+.c3{
+    margin: 2% 10% 0 25% ;
 }
