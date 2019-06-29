@@ -16,6 +16,7 @@ const AppRouter=()=> {
            <PrivateRouter  path='/homepage' component={Homepage} />
            <PrivateRouter path='/mainpage' component={Mainpage}/>
            <PrivateRouter path='/logout' component={Logout}/>
+           
          </Switch>
       </BrowserRouter>
     </div>

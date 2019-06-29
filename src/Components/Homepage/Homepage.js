@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import Layout from '../Layout';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import actions from './Actions'
+import actions from './Actions';
+import Modal from './Modal'
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             blogData: [],
             requiredData: null,
-            display: false,
+            show: false,
         }
         //alert("user authenticated");
         //console.log("props frm constructor of homepage is", props)
@@ -25,14 +26,36 @@ class Homepage extends Component {
     }
     handleClick = (value) => {
         this.props.getData(value);
-        this.setState({
-            requiredData: value
-        })
+        // this.setState({
+        //     requiredData: value
+        // })
         this.props.history.push('/mainpage');
+    }
+    createBlog = ()=>{
+        this.setState({
+            show: true
+        })
+    }
+    sendData=(state)=>{
+        const { header, description, imgUrl} = state;
+       const  x= {
+            header,
+            description,
+            imgUrl
+        }
+        const self  = this;
+        this.state.blogData.push(x);
+        this.props.getData(x);
+        this.props.history.push('/mainpage')
+
+
+        debugger;
     }
     render() {
         return (
             <Layout>
+                <Modal show={this.state.show} sendData={this.sendData}/>
+                <button onClick={this.createBlog}>create new Blog</button>
                 <div className="blog-content">
                     {this.state.blogData.length && this.state.blogData.map((item, index) => {
                         return (
